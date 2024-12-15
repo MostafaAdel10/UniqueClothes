@@ -1,0 +1,32 @@
+﻿@model List<Product>
+
+<!-- Products List -->
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+        <div class="card product-item border-0 mb-4">
+            <!-- Product Image -->
+            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                <img class="img-fluid w-100" src="@item.ImageURL1" alt="@item.Name">
+            </div>
+            <!-- Product Details -->
+            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                <h6 class="text-truncate mb-3">@item.Name</h6>
+                <p class="product-description mt-3">@item.Description</p>
+                <div class="d-flex justify-content-center">
+                    <h6>@item.Price.ToString("C")</h6>
+                    <h6 class="text-muted ml-2"><del>@((item.Price * 10 / 100 + item.Price).ToString("C"))</del></h6>
+                </div>
+            </div>
+            <!-- Product Actions -->
+            <div class="card-footer d-flex justify-content-between bg-light border">
+                <a asp-action="GetProductById" asp-controller="Product" asp-route-id="@item.ProductID" class="btn btn-sm text-dark p-0">
+                    <i class="fas fa-eye text-primary mr-1"></i>View Detail
+                </a>
+                <a asp-action="Details" asp-controller="Product" asp-route-id="@item.ProductID" class="btn btn-sm text-dark p-0">
+                    <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart
+                </a>
+            </div>
+        </div>
+    </div>
+}

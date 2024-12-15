@@ -1,0 +1,111 @@
+﻿@model ShoppingCartVM
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Products</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    @foreach (var item in Model.ShoppingCartList)
+                    {
+                        <tr>
+                            <!-- عرض صورة المنتج واسمه -->
+                            <td class="align-middle">
+                                <img src="@item.Product.ImageURL1" alt="@item.Product.Name" style="width: 50px;" class="rounded">
+                                <span>@item.Product.Name</span>
+                            </td>
+
+                            <!-- عرض سعر المنتج -->
+                            <td class="align-middle">
+                                @item.Product.Price.ToString("C")
+                            </td>
+
+                            <!-- تعديل الكمية -->
+                            <td class="align-middle">
+                                <div class="input-group quantity mx-auto" style="width: 120px;">
+                                    <div class="input-group-btn">
+                                        <a asp-action="Minus" asp-controller="ShoppingCart" asp-route-cartId="@item.CartItemID" class="btn btn-sm btn-primary btn-minus" title="تقليل الكمية">
+                                            <i class="fa fa-minus"></i>
+                                        </a>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm bg-secondary text-center" value="@item.Quantity" readonly>
+                                    <div class="input-group-btn">
+                                        <a asp-action="Plus" asp-controller="ShoppingCart" asp-route-cartId="@item.CartItemID" class="btn btn-sm btn-primary btn-plus" title="زيادة الكمية">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- المجموع الفرعي للمنتج -->
+                            <td class="align-middle">
+                                @((item.Product.Price * item.Quantity).ToString("C"))
+                            </td>
+
+                            <!-- زر الحذف داخل نموذج -->
+                            <td class="align-middle">
+                                <form asp-action="Remove" asp-controller="ShoppingCart" method="post" class="d-inline">
+                                    <input type="hidden" name="cartId" value="@item.CartItemID" />
+                                    <button type="submit" class="btn btn-sm btn-danger" title="حذف المنتج">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <form class="mb-5" action="">
+                <div class="input-group">
+                    <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">Apply Coupon</button>
+                    </div>
+                </div>
+            </form>
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Subtotal</h6>
+                        <h6 class="font-weight-medium">@Model.OrderHeader.OrderTotal.ToString("C")</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Shipping</h6>
+                        <h6 class="font-weight-medium">$0</h6>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5 class="font-weight-bold">@Model.OrderHeader.OrderTotal.ToString("C")</h5>
+                    </div>
+                    <a asp-action="Index" asp-controller="Checkout" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<!-- Cart End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+

@@ -1,0 +1,110 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Update Product";
+    SelectList categoryOption = new SelectList(ViewBag.CategoryList, "CategoryID", "Name");
+}
+
+<div class="w-100 card border-0 p-4">
+    <div class="card-header bg-success bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Update Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body border p-4">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="ProductID" hidden />
+            <div class="col-10">
+                <div class="p-3">
+                    @* <div asp-validation-summary="All"></div> *@
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Name" class="form-control border shadow" />
+                        <label asp-for="Name" class="ms-2"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Description" class="form-control border shadow" />
+                        <label asp-for="Description" class="ms-2"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Price" class="form-control border shadow" />
+                        <label asp-for="Price" class="ms-2"></label>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Stock" class="form-control border shadow" />
+                        <label asp-for="Stock" class="ms-2"></label>
+                        <span asp-validation-for="Stock" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Size" class="form-control border shadow" />
+                        <label asp-for="Size" class="ms-2"></label>
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Color" class="form-control border shadow" />
+                        <label asp-for="Color" class="ms-2"></label>
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Image" class="form-control border shadow" />
+                        <input asp-for="ImageURL1" hidden class="form-control border shadow" />
+                        <label asp-for="ImageURL1" class="ms-2"></label>
+                        <span asp-validation-for="ImageURL1" class="text-danger"></span>
+                    </div>
+
+@*                     <div class="form-floating py-1 col-12">
+                        <input asp-for="Image" class="form-control border shadow" />
+                        <input asp-for="ImageURL2" hidden class="form-control border shadow" />
+                        <label asp-for="ImageURL2" class="ms-2"></label>
+                        <span asp-validation-for="ImageURL2" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating py-1 col-12">
+                        <input asp-for="Image" class="form-control border shadow" />
+                        <input asp-for="ImageURL3" hidden class="form-control border shadow" />
+                        <label asp-for="ImageURL3" class="ms-2"></label>
+                        <span asp-validation-for="ImageURL3" class="text-danger"></span>
+                    </div> *@
+
+                    <div>
+                        <label asp-for="CategoryID"></label>
+                        <select class="form-floating py-1 col-12" asp-for="CategoryID" asp-items="categoryOption"></select>
+                        <span asp-validation-for="CategoryID" class="text-danger"></span>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-6 col-md-3">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-check-circle"></i> Update
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <a asp-controller="ManageProduct" asp-action="Index" class="btn btn-secondary w-100">
+                                <i class="bi bi-x-circle"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <img src="@Model.ImageURL1" width="100%" style="border-radius:5px; border:1px solid #bbb9b9">
+                @* <img src="@Model.ImageURL2" alt="Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9">
+                <img src="@Model.ImageURL3" alt="Image" width="100%" style="border-radius:5px; border:1px solid #bbb9b9"> *@
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
